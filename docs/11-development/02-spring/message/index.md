@@ -1,6 +1,8 @@
 ---
 title: Spring AMQP
 has_children: true
+parent: Spring Framework
+grand_parent: Development
 nav_order: 1
 ---
 
@@ -8,6 +10,41 @@ nav_order: 1
 Spring AMQP module contains two dependencies: 
 * spring-rabbit, a set of utils to work with a RabbitMQ broker.
 * spring-amqp, which includes all the AMQP abstractions, so that you can make your implementation vendor-independent.
-* Currently, 
+
 Spring Boot provides a starter for AMQP with extra utilities such as autoconfiguration: spring-boot-starter-amqp. This starter uses both dependencies described earlier, so it implicitly assumes that you’ll use a RabbitMQ 
 broker (since it’s the only implementation available).
+
+## Message converters
+Supported  Spring AMQP message converters:
+
+### Java object serializer
+  1. It’s not a proper standard that you can use between programming 
+languages. If you introduced a consumer that’s not written in Java, 
+you would have to look for a specific library to perform cross-
+language deserialization.
+  1. It uses a hard-coded, fully qualified type name in the header of the 
+message. The deserializer expects the Java bean to be located in the 
+same package and to have the same name and fields. This is not 
+flexible at all, since you may want to deserialize only some properties 
+and keep your own version of the event data, following good domain-
+driven design practices.
+
+### JSON
+On the subscriber side, you can benefit from the popularity of the JSON format to deserialize the contents using any programming language. You could also use your own object representation and ignore properties you don’t need on the consumer side, thereby reducing the coupling between microservices. If the publisher includes new fields in the payload, the subscribers don’t need to change anything.
+By injecting a bean of type Jackson2JsonMessageConverter, you’re overriding the 
+default Java object serializer by a JSON object serializer
+```java
+    @Bean
+    public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+ 
+        return new Jackson2JsonMessageConverter();
+    }
+```
+The Jackson2JsonMessageConverter uses a Jackson’s ObjectMapper preconfigured 
+in Spring AMQP. This bean will be used then by the RabbitTemplate implementation, 
+the class that serializes and sends objects as AMQP messages to the broker
+
+### XML
+
+### Google’s Protocol Buffers (aka, protobuf)
+In real systems where performance is critical, you should consider an efficient binary format (e.g., protobuf).

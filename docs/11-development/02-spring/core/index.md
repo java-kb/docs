@@ -1,7 +1,7 @@
-
 ---
 title: Spring Framework Core
-parent: Development
+parent: Spring Framework
+grand_parent: Development
 nav_order: 1
 ---
 
