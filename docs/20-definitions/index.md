@@ -1,5 +1,6 @@
 ---
 title: Definitions
+has_children: true
 nav_order: 100
 ---
 
@@ -14,11 +15,28 @@ Eventually-consistent services are often classified as providing BASE semantics 
   
 ## Fault Tolerance
 Fault tolerance is the ability of a system to maintain proper operation despite failures or faults in one or more of its components. This capability is essential for high-availability, mission-critical, or even life-critical systems.
+
 Fault tolerance specifically refers to a system's capability to handle faults without any degradation or downtime. In the event of an error, end-users remain unaware of any issues. Conversely, a system that experiences errors with some interruption in service or graceful degradation of performance is termed 'resilient'. In resilience, the system adapts to the error, maintaining service but acknowledging a certain impact on performance.
 Fault tolerance means that a system can continue to operate and provide service even if something goes wrong.
 
 ## Idempotent
 In computing, an operation is idempotent if it can be called more than once without different outcomes.
+
+## Lexical Token
+A lexical token is a sequence of characters that can be treated as a unit in the grammar of the programming languages. 
+Example of tokens:
+
+- Type token (id, number, real, . . . )
+- Punctuation tokens (IF, void, return, . . . )
+- Alphabetic tokens (keywords)
+```  
+Keywords; Examples-for, while, if etc.
+Identifier; Examples-Variable name, function name, etc.
+Operators; Examples '+', '++', '-' etc.
+Separators; Examples ',' ';' etc
+```
+Example of Non-Tokens:
+- Comments, preprocessor directive, macros, blanks, tabs, newline, etc.
 
 ## Resilience
 Resilience in microservices refers to an application’s ability to withstand failures, stay available, and deliver consistent performance in distributed environments

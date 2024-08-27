@@ -1,0 +1,97 @@
+---
+title: Spring Cloud Gateway
+parent: Gateway
+nav_order: 1
+---
+
+# Spring Cloud Gateway Server
+For the gateway pattern, Spring Cloud offers two options
+* Spring Cloud Netflix(In maintenance mode)
+* Spring Cloud Gateway
+  
+## Config
+
+- add library to pom
+  
+For Spring Cloud Gateway Reactive the artifact ID is **spring-cloud-starter-gateway**
+
+For Spring Cloud Gateway Server MVC the artifact ID is **spring-cloud-starter-gateway-mvc**
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+ <name>gateway</name>
+ <properties>
+ <spring-cloud.version>2022.0.3</spring-cloud.version>
+ </properties>
+ <dependencies>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-gateway</artifactId>
+    </dependency>
+ </dependencies>
+ <dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${spring-cloud.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+ </dependencyManagement>
+</project>
+```
+
+- add some configuration to proxy all the endpoints in application.yml
+  
+```yml    
+gateway:
+    routes:
+    #Any request to or under http://localhost:8000/attempts will
+    #be proxied to the Multiplication microservice, deployed locally
+    #at http://localhost:8080/. The same will happen to other
+    #API contexts located in the same microservice, like challenges
+    #and users.
+    - id: multiplication
+      uri: http://localhost:8080/
+      predicates:
+        - Path=/challenges/**,/attempts/**,/users/**
+    # Requests to http://localhost:8000/leaders will be translated to 
+    # requests to the Gamification microservice, which uses the same host 
+    # (localhost) but the port 8081
+    - id: gamification
+      uri: http://localhost:8081/
+      predicates:
+        - Path=/leaders
+    globalcors:
+    # append some CORS configuration for the UI to be allowed to make requests from its origin
+    cors-configurations:
+        "[/**]":
+        allowedOrigins: http://localhost:3000,http://localhost:8100
+        allowedHeaders: "*"
+        allowedMethods:
+            - GET
+            - POST
+            - OPTIONS
+    default-filters:
+      - name: Retry
+        args:
+        retries: 3
+        methods: GET,POST
+```
+- Enable debug log for gateway
+  
+```yml
+logging:
+  level:
+    "[org.springframework.cloud.gateway.handler.predicate]": trace
+
+```
+
+## Examples
+* [Spring Cloud Gateway Sample](https://github.com/spring-kb/spring-cloud-gateway-sample)
+* [Building a Gateway :: Learn how to configure a gateway](https://github.com/spring-kb/spring-guide-building-gateway)
+
+## Samples
+* [Multiplication Microservices Example](https://github.com/books-java/Learn-Microservices-with-Spring-Boot-3)
