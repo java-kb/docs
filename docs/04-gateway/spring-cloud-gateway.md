@@ -16,6 +16,7 @@ For the gateway pattern, Spring Cloud offers two options
 For Spring Cloud Gateway Reactive the artifact ID is **spring-cloud-starter-gateway**
 
 For Spring Cloud Gateway Server MVC the artifact ID is **spring-cloud-starter-gateway-mvc**
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
@@ -92,6 +93,8 @@ logging:
 ## Examples
 * [Spring Cloud Gateway Sample](https://github.com/spring-kb/spring-cloud-gateway-sample)
 * [Building a Gateway :: Learn how to configure a gateway](https://github.com/spring-kb/spring-guide-building-gateway)
-
+* [What is API Gateway exactly? Spring Cloud Gateway?](https://github.com/galkzaz/what-is-api-gateway-exactly-spring-cloud-gateway)
+* [Sample application integrating Spring Cloud Gateway and Spring Security OAuth2](https://github.com/galkzaz/what-is-api-gateway-exactly-spring-cloud-gateway)
+* [Spring Cloud Gateway with OpenID Connect and Token Relay](https://github.com/spring-kb/spring-cloud-gateway-oidc-tokenrelay)
 ## Samples
 * [Multiplication Microservices Example](https://github.com/books-java/Learn-Microservices-with-Spring-Boot-3)
