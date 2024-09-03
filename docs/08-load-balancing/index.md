@@ -5,6 +5,12 @@ nav_order: 8
 ---
 
 # Load Balancing
+The load balancing pattern is closely related to service discovery. If more than 
+one service uses the same name upon registration, that implies there are multiple 
+replicas available. You want to balance the traffic between them so you can increase the 
+capacity of the system and make it more resilient in case of errors thanks to the added 
+redundancy.
+
 To make load balancing work properly, you need some prerequisites.
 * The gateway needs to know the available instances for a given service. The initial configuration points directly to a specific port 
 because you assumed that there is only one instance. What would that look like with multiple replicas? You shouldn’t include a 

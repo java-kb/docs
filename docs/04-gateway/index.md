@@ -14,20 +14,27 @@ filters.
 
 Also, if you add user authentication to your system, you would be required to validate the security credentials in every backend microservice, which can be cumbersome. A more sensible approach is to place this logic at the edge of your backend, validating API calls and forwarding simple requests to other microservices. As long as you ensure the rest of the backend services are not externally reachable, you don’t need to worry about security concerns.
 
-## Servers
-### Spring Cloud Gateway
-For the gateway pattern, Spring Cloud offers two options
-* Spring Cloud Netflix(In maintenance mode)
-* Spring Cloud Gateway
+with the gateway, you made your API clients unaware of your internal services, and you could easily 
+implement cross-cutting concerns such as user authentication or monitoring.
 
-### Nginx
-A powerful and lightweight web server, reverse proxy, and load balancer. Its high performance
-and low resource usage makes it an excellent choice as a reverse proxy in front of microservices for load balancing, SSL termination,caching and serving static content.
+In a production environment, you would 
+typically expose the gateway HTTP interface on port 80 (or 443 if you use HTTPS) and use a DNS 
+address (e.g., bookgame.tpd.io) to point to the IP where your server lives. Nevertheless, 
+there would be a single entry point for public access, and that makes this service a 
+critical part of your system. It must be as highly available as possible. If the Gateway 
+service goes down, your entire system goes down.
 
-### HAProxy 
-is an open-source loadbalancer and proxy server that provides high availability for TCP-and HTTP-based applications. It also improves the performance
-and reliability of applications by distributing network traffic acrossmany servers.
+To reduce the risk, you could introduce DNS load balancing (a hostname that points 
+to multiple IP addresses) to add redundancy to the gateway. However, it relies on the 
+client (e.g., a browser) to manage the list of IP addresses and handle failover when one 
+of the hosts doesn’t respond (see https://www.f5.com/glossary/dns-load-balancing for an explanation). You could see this as an extra layer on top of 
+the gateway, which adds client-side discovery (DNS resolution to a list of IP addresses), 
+load balancing (choose an IP address from the list), and fault tolerance (try another IP 
+after a timeout or error). This is not a typical approach.
 
-### Kong Gateway
-is a lightweight, cloudnative, fast, and flexible distributed API gateway. It is built on the NGINX platform, and you can extend it through modules and
-plugins to deliver advanced features like advanced security, traffic management, observability, and administration. It is available in both open-source and enterprise versions to cater to the different needs of small to large organizations.
+Cloud providers such as Amazon, Microsoft, and Google offer the routing and 
+load balancing patterns as managed services with high availability guarantees, so 
+that’s also an alternative to making sure the gateway remains operational at all times. 
+Kubernetes, on the other hand, allows you to create a load balancer on top of your own 
+gateway, so you can add redundancy to that layer too. You’ll read more about platform 
+implementations at the end of this chapter.

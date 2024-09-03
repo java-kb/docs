@@ -1,6 +1,6 @@
 ---
 title: Spring Cloud Gateway
-parent: Gateway
+parent: Gateway Servers
 nav_order: 1
 ---
 
