@@ -5,6 +5,8 @@ nav_order: 100
 ---
 
 # Definitions
+## bare metal installation
+A “bare metal install” means you are installing to a hard drive or SSD and using the actual hardware. That's opposed to installing into a VHD in a virtual machine with abstracted and emulated hardware. In neither case are you saving any storage space
 
 ## Eventual consistency
 Eventual consistency is a consistency model used in distributed computing to achieve high availability that informally guarantees that, if no new updates are made to a given data item, eventually all accesses to that item will return the last updated value. Eventual consistency, also called optimistic replication.
