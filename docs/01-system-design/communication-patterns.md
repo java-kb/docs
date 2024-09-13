@@ -1,7 +1,7 @@
 ---
 title: Communication Patterns
 parent: System Design
-nav_order: 5
+nav_order: 6
 ---
 
 # Communication Patterns
