@@ -165,3 +165,5 @@ spring:
             retries: 3
             methods: GET,POST
 ```
+## Examples
+* [Spring Boot Microservices with Consul, Spring Cloud Gateway and Docker](https://github.com/spring-kb/spring-boot-microservices-with-consul-spring-cloud-gateway-and-docker))

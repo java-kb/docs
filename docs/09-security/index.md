@@ -10,10 +10,11 @@ nav_order: 9
 
 > TODO Read Health Insurance Privacy and Accountability Act (HIPAA)
 
-the Payment Card Industry Data Security Standard (PCI DSS) and the Health Insurance 
-Privacy and Accountability Act (HIPAA) privacy rules. Both these standards are intended to 
+the **Payment Card Industry Data Security Standard (PCI DSS)** and **the Health Insurance 
+Privacy and Accountability Act (HIPAA)** privacy rules, both standards are intended to 
 ensure the safety of specific sensitive information (such as credit card and medical information) 
 through a combination of process and software controls.
+
 Many other industries and countries have similar rules about sensitive or Personally Identifiable 
 Information (PII). Failure to follow these standards is not only bad practice but also something 
 that could expose you or your company to significant liability (not to mention bad press) in 

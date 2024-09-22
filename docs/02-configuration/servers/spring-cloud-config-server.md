@@ -174,5 +174,9 @@ class MessageRestController {
     }
 }
 ```
+
 ## Examples
 * [Baeldung Quick Intro to Spring Cloud Configuration](https://github.com/spring-kb/baeldung-quick-intro-to-spring-cloud-config)
+* [ Quick Guide to Spring Cloud Consul](https://github.com/spring-kb/baeldung-spring-cloud-consul)
+## Samples
+* [Multiplication Microservices Example](https://github.com/books-java/Learn-Microservices-with-Spring-Boot-3)

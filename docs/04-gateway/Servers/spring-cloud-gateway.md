@@ -96,5 +96,6 @@ logging:
 * [What is API Gateway exactly? Spring Cloud Gateway?](https://github.com/galkzaz/what-is-api-gateway-exactly-spring-cloud-gateway)
 * [Sample application integrating Spring Cloud Gateway and Spring Security OAuth2](https://github.com/galkzaz/what-is-api-gateway-exactly-spring-cloud-gateway)
 * [Spring Cloud Gateway with OpenID Connect and Token Relay](https://github.com/spring-kb/spring-cloud-gateway-oidc-tokenrelay)
+* [Spring Boot Microservices with Consul, Spring Cloud Gateway and Docker](https://github.com/spring-kb/spring-boot-microservices-with-consul-spring-cloud-gateway-and-docker))
 ## Samples
 * [Multiplication Microservices Example](https://github.com/books-java/Learn-Microservices-with-Spring-Boot-3)
