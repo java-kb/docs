@@ -1,10 +1,10 @@
 ---
-title: Message Queuing
-has_children: true
-nav_order: 10
+title: Spring Logging
+parent: Spring Framework
+grand_parent: Development
+nav_order: 14
 ---
 
-# Message Queuing
-
+# Spring Logging
 # Examples
 * [A Simple Solution for Log Centralization Using Spring and RabbitMQ](https://github.com/spring-kb/logging-spring-rabbitmq-logging)

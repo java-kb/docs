@@ -6,6 +6,12 @@ nav_order: 6
 
 Health Check
 ==================================================
+Like we go for regular health checkup, similarly we should check the health of our microservices as well. Sometimes a service instance can be incapable of handling requests yet still be running. They might have ran out of database connections. Whenever this occurs, the monitoring system should generate a alert. Also, the load balancer or service registry should not route requests to the failed service instance.
+
+A service has an health check API endpoint (e.g. HTTP /health) that returns the health of the service. The API endpoint handler performs various checks e.g: status of DB connections, disk space or any application specific logic.
+
+When can add Actuator dependency (spring-boot-starter-actuator) in our project. The API endpoint in this case is http//localhost:portnumber/actuator/health.
+
 A system running on a production environment is never safe from errors. Network 
 connections may fail, or a microservice instance may crash due to an out-of-memory 
 problem caused by a bug in the code. You’re determined to build a resilient system, 

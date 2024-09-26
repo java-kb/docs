@@ -15,3 +15,12 @@ consistency.
 Atomicity, or ensuring that either all related data is stored or nothing is, is hard to achieve across microservices
 Modular monolithic application
 If your project’s requirements are not compatible with eventual consistency across domains, a modular monolithic application might suit you better.
+## Microservices : Observability Patterns
+Here are a few Observability Patterns:
+
+* Log aggregation — aggregate application logs
+* Application metrics — instrument a service’s code to gather statistics about operations
+* Audit logging — record user activity in a database
+* Distributed tracing — instrument services with code that assigns each external request an unique identifier that is passed between services. Record information (e.g. start time, end time) about the work (e.g. service requests) performed when handling the external request in a centralized service
+* Exception tracking — report all exceptions to a centralized exception tracking service that aggregates and tracks exceptions and notifies developers.
+* Health check API — service API (e.g. HTTP endpoint) that returns the health of the service and can be pinged, for example, by a monitoring service

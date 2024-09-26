@@ -177,3 +177,5 @@ logback-spring.xml
     </root>
 </configuration>
 ```
+# Examples
+* [A Simple Solution for Log Centralization Using Spring and RabbitMQ](https://github.com/spring-kb/logging-spring-rabbitmq-logging)

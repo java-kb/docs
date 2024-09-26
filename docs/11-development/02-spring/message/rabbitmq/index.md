@@ -16,7 +16,8 @@ To use the AMQP and RabbitMQ features in Spring Boot applications.
     </dependency>
 </dependencies>
 ```
-
+# Examples
+* [A Simple Solution for Log Centralization Using Spring and RabbitMQ](https://github.com/spring-kb/logging-spring-rabbitmq-logging)
 ## Samples
 TODO Add Multiplication Microservices Example to github
 * [Multiplication Microservices Example](https://github.com/books-java/Learn-Microservices-with-Spring-Boot-3)

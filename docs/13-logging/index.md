@@ -8,6 +8,14 @@ nav_order: 13
 To properly maintain a distributed system like your microservice architecture, 
 you need a central place where you can access all the aggregated logs and search across them.
 
+In Microservice architecture the application consists of multiple services and service instances that are running on multiple machines. Each service instance generates information about what it is doing to a log file in a standardized format. The log file might contains errors, warnings, information and debug messages.
+
+To understand the behavior of an application and troubleshoot problems we should use a centralized logging service. The centralized logging aggregates logs from each service instance. When required the developer can search and analyze the logs.
+
+We can also configure alerts that are triggered when certain messages appear in the logs.
+
+But at the same time handling a large volume of logs requires substantial infrastructure.
+
 Basically, the idea is to send all the log outputs from your applications to another 
 component in your system, which will consume them and put them all together. Besides, 
 you want to persist these logs for some time, so this component should have data 
@@ -20,3 +28,6 @@ to keep the application logic unaware of this pattern. The services should just 
 messages using a common interface (e.g., a Logger in Java). The logging agent that 
 channels these logs to the central aggregator works independently, capturing the output 
 that the application produces.
+
+# Examples
+* [A Simple Solution for Log Centralization Using Spring and RabbitMQ](https://github.com/spring-kb/logging-spring-rabbitmq-logging)
