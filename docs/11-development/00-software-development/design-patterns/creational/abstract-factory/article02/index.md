@@ -1,5 +1,5 @@
 ---
-title: Abstract Factory sourcemaking
+title: Abstract Factory(sourcemaking)
 parent: Abstract Factory
 nav_order: 2
 ---

@@ -1,5 +1,5 @@
 ---
-title: Factory Method refactoring.guru
+title: Factory Method(refactoring.guru)
 parent: Factory Method
 nav_order: 1
 ---

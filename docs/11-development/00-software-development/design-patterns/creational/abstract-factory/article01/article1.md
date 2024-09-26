@@ -1,5 +1,5 @@
 ---
-title: Abstract Factory refactoring.guru
+title: Abstract Factory(refactoring.guru)
 parent: Abstract Factory
 nav_order: 1
 ---

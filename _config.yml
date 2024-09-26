@@ -49,6 +49,9 @@ defaults:
       type: "pages"
     values:
       layout: "default"
+
+back_to_top: true
+back_to_top_text: "Back to top"
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to

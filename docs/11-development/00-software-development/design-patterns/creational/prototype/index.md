@@ -1,0 +1,35 @@
+---
+title: Prototype
+parent: Creational Design Patterns
+has_children: true
+nav_order: 4
+---
+
+# Prototype
+The Gang of Four describes the purpose of the “Prototype” pattern as follows:
+
+> Determine the types of objects to create by using a prototypical copy, and create new objects 
+by copying that prototype.
+
+
+The **Prototype** Pattern belongs to the category of generation patterns. You have a certain 
+number of products that do not differ signifcantly. You create a prototype of a product. 
+When variations are requested, you clone the prototype and vary it. Example: you offer 
+different types of pizzas. To cope with the volume of orders, you make a prototype of a 
+Pizza Margherita. When a Hawaiian pizza is ordered, you clone the prototype, top it with 
+ham and pineapple, and serve the fnished pizza.
+
+
+## Identification
+The prototype can be easily recognized by a clone or copy methods, etc.
+
+## Usage examples
+## JDK
+The Prototype pattern is available in Java out of the box with a Cloneable interface.
+
+Any class can implement this interface to become cloneable.
+
+**java.lang.Object#clone()** (class should implement the **java.lang.Cloneable** interface)
+
+## Examples
+https://github.com/java-kb/design_patterns
