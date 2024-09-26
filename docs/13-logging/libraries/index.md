@@ -7,7 +7,7 @@ nav_order: 3
 
 # Logging  Libraries
 ## Logback
-Logback s a logging framework for Java that implements SL4J (Simple Logging Facade for Java). 
+Logback is a logging framework for Java that implements SL4J (Simple Logging Facade for Java). 
 Given that this tool is driven by an external configuration file, you don’t need to modify the code in your applications.
 
 In Logback, the piece of logic that writes a log line to the specific destination is called 
@@ -15,6 +15,7 @@ an appender. This logging library includes some built-in appenders to print mess
 to the console (ConsoleAppender) or files (FileAppender and RollingFileAppender). 
 You didn’t need to configure them because Spring Boot includes some default Logback 
 configuration within its dependencies and also sets up the printed message patterns.
+
 ### Integerate with RabbitMQ
 Spring AMQP provides a Logback AMQP logging appender 
 that does exactly what you need: it takes each log line and produces a message to a given 
@@ -179,3 +180,5 @@ logback-spring.xml
 ```
 # Examples
 * [A Simple Solution for Log Centralization Using Spring and RabbitMQ](https://github.com/spring-kb/logging-spring-rabbitmq-logging)
+* [Simple project to log using loki and grafana](https://github.com/spring-kb/logging-spring-loki-grafana)
+* [Logging in Spring Boot With Loki](https://github.com/spring-kb/logging-baeldung-spring-boot-loki-grafana)
