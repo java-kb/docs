@@ -1,6 +1,6 @@
 ---
 title: N-Tier architecture
-parent: System Design
+parent: Architecture
 nav_order: 3
 ---
 

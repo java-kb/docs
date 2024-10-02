@@ -1,6 +1,6 @@
 ---
 title: Monolithic
-parent: System Design
+parent: Architecture
 nav_order: 2
 ---
 

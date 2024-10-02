@@ -1,6 +1,6 @@
 ---
 title: Service-Oriented Architecture
-parent: System Design
+parent: Architecture
 nav_order: 5
 ---
 

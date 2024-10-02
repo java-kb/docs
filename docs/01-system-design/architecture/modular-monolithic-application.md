@@ -1,6 +1,6 @@
 ---
 title: Modular monolithic application
-parent: System Design
+parent: Architecture
 nav_order: 4
 ---
 

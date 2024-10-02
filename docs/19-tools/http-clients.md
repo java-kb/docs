@@ -47,6 +47,10 @@ for i in {1..10}; do http --ignore-stdin POST :8000/attempts factorA=15 factorB=
 ### Install
 
 ### Usage
+Skip testing the authenticity of the certificate
+```bash
+curl -k -u user:pass https://localhost:8080/hello
+```
 #### Get
 ```bash
 curl http://localhost:8080/get
@@ -65,8 +69,12 @@ http DELETE http://localhost:8090/delete
 ```
 #### Authenticate
 ```bash
-http -a username:password pie.dev/basic-auth/username/password
+curl -u user:335cb4b4-4020-4b71-967f-8bf921ab45c4 http://localhost:8080/hello
 ```
+```bash
+curl -v -H "Authorization: Basic $(echo -n user:335cb4b4-4020-4b71-967f-8bf921ab45c4 | base64)" localhost:8080/hello
+```
+
 #### Headers
 ```bash
 http pie.dev/headers User-Agent:Bacon/1.0 'Cookie:valued-visitor=yes;foo=bar' \

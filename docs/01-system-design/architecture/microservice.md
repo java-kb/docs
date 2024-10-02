@@ -1,6 +1,6 @@
 ---
 title: Microservices
-parent: System Design
+parent: Architecture
 nav_order: 4
 ---
 

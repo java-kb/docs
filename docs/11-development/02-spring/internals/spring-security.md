@@ -28,32 +28,30 @@ The pseudocode for how o.s.web.filter.DelegatingFilterProxy works for
 our web.xml file can be found in the following code snippet:
 
   
-  *// DelegatingFilterProxy Pseudo Code*\
-  **public** **void** **doFilter**(ServletRequest request,
-  ServletResponse response,\
-  FilterChain chain) {\
-  Filter delegate = getFilterBean(someBeanName);\
-  delegate.doFilter(request, response);\
+```java
+  // DelegatingFilterProxy Pseudo Code
+  public void doFilter(ServletRequest request,
+    ServletResponse response,
+    FilterChain chain) {
+
+    Filter delegate = getFilterBean(someBeanName);
+    delegate.doFilter(request, response);
   }
+```
   
 
-
-The FilterChainProxy class
+## FilterChainProxy class
 
 When working in conjunction with Spring Security,
-o.s.web.filter.DelegatingFilterProxy
-
-will delegate to the o.s.s.web.FilterChainProxy interface of Spring
+o.s.web.filter.DelegatingFilterProxy will delegate to the o.s.s.web.FilterChainProxy interface of Spring
 Security. The FilterChainProxy class allows Spring Security to
 conditionally apply any number of Servlet Filters to the Servlet Request
 
 The pseudocode for how FilterChainProxy works is as follows:
 
-+-----------------------------------------------------------------------+
-| **public** **class** **FilterChainProxy** **implements** **Filter** { |
-| **void**\                                                             |
-| **doFilter**(request, response, filterChain) {\                       |
-| *// lookup all the Filters for this request*\                         |
+public class FilterChainProxy implements Filter { 
+  void doFilter**(request, response, filterChain) {
+// lookup all the Filters for this request*\                         |
 | List\<Filter\> delegates = lookupDelegates(request,response)\         |
 | *// invoke each filter unless the delegate decided to stop*\          |
 | **for** delegate in delegates { **if** **continue** processing\       |
@@ -70,12 +68,40 @@ The pseudocode for how FilterChainProxy works is as follows:
 +=======================================================================+
 +-----------------------------------------------------------------------+
 
-## 
+Bellow figure shows the big picture of the main actors (components) in the Spring Security architecture and the relationships among them
+![alt text](image.png)
+Figure shows that
+1. The authentication filter delegates the authentication request to the authentication manager, and based on the response, it configures the security context.
+2. The authentication manager uses the authentication provider to process 
+authentication.
+1. The authentication provider implements the authentication logic.
+2. The user details service implements user management responsibility, which the 
+authentication provider uses in the authentication logic.
+1. The password encoder implements password management, which the authenti-
+cation provider uses in the authentication logic.
+1. The security context keeps the authentication data after the authentication process. The security context will hold the data until the action ends. Usually, in a thread-per-request app, that means until the app sends a response back to the 
+client.
 
 ## Spring Boot Autoconfiguration
+### Customization
+Customizer is a contract you implement to define the customization for either Spring Security element you configure: the authentication, the authorization, or particular protection mechanisms such as CSRF or CORS.
 
+Customizer is a functional interface (so we can use lambda expressions to implement it), and the withDefaults() implementation that does nothing:
+```java
+@FunctionalInterface
+public interface Customizer<T> {
+ void customize(T t);
+ static <T> Customizer<T> withDefaults() {
+ return (t) -> {
+ };
+ }
+}
+```
 ### SecurityAutoConfiguration
-
+With spring boot default configuration, the app has two different authentication 
+mechanisms in place: HTTP Basic and Form Login, including a username and a password, when you start the application.
+Spring Boot also chooses an authentication method when configuring the defaults: 
+HTTP Basic access authentication. It’s the most straightforward access authentication method. Basic authentication only requires the client to send a username and a password through the HTTP Authorization header. In the value of the header, the client attaches the prefix Basic, followed by the Base64 encoding of the string that contains the username and password, separated by a colon (:).
 [[https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/security/servlet/SecurityAutoConfiguration.java]{.underline}](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/security/servlet/SecurityAutoConfiguration.java)
 
   -----------------------------------------------------------------------
@@ -110,7 +136,9 @@ The pseudocode for how FilterChainProxy works is as follows:
   -----------------------------------------------------------------------
 
 ### SpringBootWebSecurityConfiguration
-
+A default implementation of an Authentication-
+Provider uses the default implementations provided for the UserDetailsService
+and the PasswordEncoder. Implicitly, your application secures all the endpoints. 
 [https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/security/servlet/SpringBootWebSecurityConfiguration.java](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/security/servlet/SpringBootWebSecurityConfiguration.java)
 
 +-----------------------------------------------------------------------+
@@ -245,7 +273,7 @@ The pseudocode for how FilterChainProxy works is as follows:
   -----------------------------------------------------------------------
 
 ### UserDetailsServiceAutoConfiguration
-
+the default implementation provided by Spring Boot registers the default credentials in the internal memory of the application. These default credentials are “user” with a default password that’s a universally unique identifier (UUID). The default password is generated randomly when the Spring context is loaded (at the app startup). At this time, the application writes the password to the console where you can see it.
 [[https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/security/servlet/UserDetailsServiceAutoConfiguration.java]{.underline}](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/security/servlet/UserDetailsServiceAutoConfiguration.java)
 
   ---------------------------------------------------------------------------------------------------------
@@ -331,9 +359,11 @@ The pseudocode for how FilterChainProxy works is as follows:
   }\
   \
   }
-  ---------------------------------------------------------------------------------------------------------
 
-  ---------------------------------------------------------------------------------------------------------
+### PasswordEncoder
+the PasswordEncoder is mandatory for the Basic authentication flow. The simplest implementation manages the passwords in plain text and doesn’t encode these.PasswordEncoder exists together with the default UserDetailsService. When we replace the default implementation of the UserDetailsService, we must also specify 
+a PasswordEncoder.
+ 
 
 ## Configuration
 
@@ -1542,8 +1572,13 @@ public class SecurityConfig {
 }
 ```
 ### Practice:CustomAuthenticationProvider
-### PasswordEncoder
 
+### PasswordEncoder
+The PasswordEncoder does two things:
+1. Encodes a password (usually using an encryption or a hashing algorithm)
+1. Verifies if the password matches an existing encoding
+
+ 
 [[https://github.com/spring-projects/spring-security/blob/main/crypto/src/main/java/org/springframework/security/crypto/password/PasswordEncoder.java]{.underline}](https://github.com/spring-projects/spring-security/blob/main/crypto/src/main/java/org/springframework/security/crypto/password/PasswordEncoder.java)
 
   -----------------------------------------------------------------------
@@ -1595,8 +1630,7 @@ public class SecurityConfig {
 
 #### NoOpPasswordEncoder 
 
-Managing passwords in cleartext is what the instance of
-NoOpPasswordEncoder is precisely
+Managing passwords in cleartext is what the instance of NoOpPasswordEncoder is precisely
 
 [[https://github.com/spring-projects/spring-security/blob/main/crypto/src/main/java/org/springframework/security/crypto/password/NoOpPasswordEncoder.java]{.underline}](https://github.com/spring-projects/spring-security/blob/main/crypto/src/main/java/org/springframework/security/crypto/password/NoOpPasswordEncoder.java)
 

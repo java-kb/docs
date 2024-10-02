@@ -7,9 +7,34 @@ nav_order: 3
 ---
 
 # Spring Security
-## Authentication flow in Spring Security
+## Authentication
+With spring boot default configuration, the app has two different authentication 
+mechanisms in place: HTTP Basic and Form Login, including a username and a password, when you start the application.
+
+
+HTTP Basic is a way in which a web app authenticates a user by means of a set of credentials (username and password) that the app gets in the header of the HTTP request.
+
+### Authentication flow in Spring Security
 The AuthenticationFilter captures the incoming request and passes the task of authentication to the AuthenticationManager. The AuthenticationManager, in turn, utilizes an authentication provider to carry out the authentication 
 process. For verifying the username and password, the AuthenticationProvider relies on a UserDetailsService and a PasswordEncoder.
 ![Spring Security’s authentication flow](spring-security-authentication-flow.png)
+
+## Customization
+Customizer is a contract you implement to define the customization for either Spring Security element you configure: the authentication, the authorization, or particular protection mechanisms such as CSRF or CORS.
+
+Customizer is a functional interface (so we can use lambda expressions to implement it), and the withDefaults() implementation that does nothing:
+
+```java
+@FunctionalInterface
+public interface Customizer<T> {
+ void customize(T t);
+ static <T> Customizer<T> withDefaults() {
+ return (t) -> {
+ };
+ }
+}
+```
+A customizer object allows you more flexibility in moving the configuration where needed. Sure, with simple examples, using lambda expressions is comfortable. But in real-world apps, the configurations can grow a lot. In such cases, the ability to move these configurations in separate classes helps you keep the configurations easier to maintain and test.
+
 ## Examples
 * [Baeldung Spring Security OAuth Authorization Server](https://github.com/spring-kb/baeldung-spring-security-oauth-auth-server)
