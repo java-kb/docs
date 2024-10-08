@@ -1,6 +1,7 @@
 ---
 title: Microservices
 parent: Architecture
+has_children: true
 nav_order: 4
 ---
 

@@ -1,8 +1,8 @@
 ﻿---
 title: MICROSERVICES ARCHITECTURE FOR  MODERN DIGITAL PLATFORMS
-grand_parent: System Design
+grand_parent: Microservices
 parent: Articles
-nav_order: 1
+nav_order: 3
 ---
 
 # MICROSERVICES ARCHITECTURE FOR  MODERN DIGITAL PLATFORMS

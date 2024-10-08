@@ -964,7 +964,6 @@ JwtAuthenticationProvider specializes in authenticating JSON Web Tokens.
   -----------------------------------------------------------------------
 
 ####  Username/Password Authentication
-
 The AuthenticationProvider is the element responsible for executing the
 authentication process and utilizes the UserDetailsService to gather
 user details. It invokes the loadUserByUsername(String username) method
@@ -2299,6 +2298,8 @@ the formLogin() method instructed Spring Security to use o.s.s.web.authenticatio
 * Create a UsernamePasswordAuthenticationToken object with the information 
 obtained from the HTTP request.
 * Request that Spring Security validates UsernamePasswordAuthenticationToken.
+* If the token is validated, it will set the authentication returned to it on SecurityContext
+Holder
 
 https://github.com/spring-projects/spring-security/blob/main/web/src/main/java/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java
 ```java

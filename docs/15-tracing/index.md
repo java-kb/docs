@@ -5,6 +5,10 @@ nav_order: 15
 ---
 
 # Tracing
+a mature event-driven system may have processes that span different microservices. Knowing what’s going on with many concurrent users and multiple event chains might become an impossible task, especially when these chains have branches with multiple event types triggering the same action.To solve this problem, you need to correlate all actions and events within the same process chain. A simple way to do this is to inject the same identifier across all HTTP calls, RabbitMQ messages, and Java threads handling the different actions. Then, you can print this identifier in all the related logs.
+Ideally, you should have a unique identifier per action, which is generated at the origin of the chain. Furthermore, it’d be better if you could propagate it transparently, without having to model this traceability concern explicitly in all the services.
+
+
 In this pattern we record information (e.g. start time, end time) about the work (e.g. service requests) performed when handling the external request in a centralized service. This can be done by:
 * Assigns each external request a unique external request id.
 * Pass this external request id to all services that are involved in handling the request.
@@ -14,3 +18,6 @@ In this pattern we record information (e.g. start time, end time) about the work
 This instrumentation might be part of the functionality provided by a Microservice Chassis framework.
 
 The drawback is aggregating and storing traces can require significant infrastructure.
+
+## Examples
+* [Simple tracing using Spring and Zipkin Server](https://github.com/spring-kb/tracing-spring-zipkin)
