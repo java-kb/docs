@@ -3,7 +3,7 @@ title: Spring AMQP
 has_children: true
 parent: Spring Framework
 grand_parent: Development
-nav_order: 10
+nav_order: 5
 ---
 
 # Spring AMQP

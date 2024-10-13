@@ -3,7 +3,7 @@ title: Spring Security
 has_children: true
 parent: Spring Framework
 grand_parent: Development
-nav_order: 3
+nav_order: 4
 ---
 
 # Spring Security

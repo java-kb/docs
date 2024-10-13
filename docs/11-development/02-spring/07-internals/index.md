@@ -3,7 +3,7 @@ title: Spring Framework Internals
 has_children: true
 parent: Spring Framework
 grand_parent: Development
-nav_order: 15
+nav_order: 7
 ---
 Spring Framework Internals
 ========================================================================================

@@ -2,7 +2,7 @@
 title: Spring Logging
 parent: Spring Framework
 grand_parent: Development
-nav_order: 14
+nav_order: 6
 ---
 
 # Spring Logging

@@ -35,5 +35,19 @@ Builder is widely used in Java core libraries:
 * javax.swing.GroupLayout.Group#addComponent()
 * All implementations java.lang.Appendable
 
+## Spring
+* EmbeddedDatabaseBuilder
+```java
+@Bean
+public DataSource dataSource() {
+    return new EmbeddedDatabaseBuilder()
+            .setName("dataSource")
+            .setType(EmbeddedDatabaseType.H2)
+            .addScript("schema.sql")
+            .addScript("data.sql")
+            .build();
+}
+```
+
 ## Examples
 https://github.com/java-kb/design_patterns
