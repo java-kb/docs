@@ -26,16 +26,12 @@ certain Java classes in the classpath or beans in the context
 
 ## SpringBootApplication
 
-The Spring Boot application has a main class annotated with
-\@SpringBootApplication. This is a shortcut annotation because it groups
-several others, among them \@EnableAutoConfiguration. As its name
-suggests, with this one you're enabling the autoconfiguration feature.
+The Spring Boot application has a main class annotated with \@SpringBootApplication. This is a shortcut annotation because it groups
+several others, among them \@EnableAutoConfiguration. As its name suggests, with this one you're enabling the autoconfiguration feature.
 Therefore, Spring activates this smart mechanism and finds and processes
-classes annotated with the \@Configuration annotation, from your own
-code but also from your dependencies.
+classes annotated with the \@Configuration annotation, from your own code but also from your dependencies.
 
-spring-boot-starter That's the core Spring Boot starter, which includes
-the artifact
+spring-boot-starter That's the core Spring Boot starter, which includes the artifact
 spring-bootautoconfigure(https://github.com/springprojects/spring-boot/blob/main/spring-boot-project/spring-boot-starters/
 spring-boot-starter/build.gradle). That Spring Boot artifact has a whole
 set of classes annotated with \@Configuration, which are responsible for
@@ -43,6 +39,12 @@ a big part of the whole Spring Boot magic. There classes are intended to
 configure web servers, message brokers, error handlers, databases, and
 many more.
 
+The @SpringBootApplication annotation is a shortcut that includes three different annotations:
+* @Configuration marks the class as a source of beans definitions.
+* @ComponentScan enables component scanning to find and register beans in the Spring context automatically.
+* @EnableAutoConfiguration enables the auto-configuration capabilities offered by Spring Boot.
+
+Spring Boot auto-configuration is triggered by several conditions, such as the presence of certain classes in the classpath, the existence of specific beans, or the values of some properties.
 ### Embedded Tomcat
 
 ![](./media/image18.png)

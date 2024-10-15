@@ -1,6 +1,7 @@
 ---
 title: Cloud Native
 parent: Architecture
+has_children: true
 nav_order: 6
 ---
 
