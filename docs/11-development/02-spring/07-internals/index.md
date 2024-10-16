@@ -730,15 +730,139 @@ height="4.839768153980752in"}
 -   
 
 # Spring Web
-
+# DispatcherServlet
+The DispatcherServlet component provides a central entry point for request process-
+ing. When a client sends a new HTTP request for a specific URL pattern, Dispatcher-
+Servlet asks the HandlerMapping component for the controller responsible for that
+endpoint, and it finally delegates the actual processing of the request to the specified
+controller. The controller processes the request, possibly by calling some other ser-
+vices, and then returns a response to DispatcherServlet, which finally replies to the
+client with an HTTP response.
+![The DispatcherServlet component is the entry point to the Servlet container (Tomcat). It 
+delegates the actual HTTP request processing to a controller identified by HandlerMapping as the one 
+responsible for a given endpoint.](image-1.png)
+https://github.com/spring-projects/spring-framework/blob/main/spring-webmvc/src/main/java/org/springframework/web/servlet/DispatcherServlet.java
 ## DelegatingFilterProxy 
 
 The o.s.web.filter.DelegatingFilterProxy class is a Servlet Filter
 provided by Spring Web that will delegate all work to a Spring bean from
-the ApplicationContext root, which must implement
-jakarta.servlet.Filter.
+the ApplicationContext root, which must implement jakarta.servlet.Filter.
+
+DelegatingFilterProxy is a class in Spring’s Web module. It provides features for making HTTP calls pass through filters before reaching the actual destination. With the help of DelegatingFilterProxy, a class implementing the jakarta.Servlet.Filter interface can be wired into the filter chain.
+
+As an example, Spring Security makes use of DelegatingFilterProxy to so it can take advantage of Spring’s dependency injection features and lifecycle interfaces for security filters.
+
+DelegatingFilterProxy also leverages invoking specific or multiple filters as per Request URI paths by providing the configuration in Spring’s application context or in web.xml.
+
+During initialization, DelegatingFilterProxy fetches the filter-name and retrieves the bean with that name from Spring Application Context. This bean must be of Type jakarta.Servlet.Filter, i.e. a “normal” servlet filter. Incoming requests will then be passed to this filter bean.
+
+In short, DelegatingFilterProxy’s doFilter() method will delegate all calls to a Spring bean, enabling us to use all Spring features within our filter bean.
+
+If we’re using Java-based configuration, our filter registration in ApplicationInitializer will be defined as:
+
+```java
+@Override
+protected Filter[] getServletFilters() {
+    DelegatingFilterProxy delegateFilterProxy = new DelegatingFilterProxy();
+    delegateFilterProxy.setTargetBeanName("applicationFilter");
+    return new Filter[]{delegateFilterProxy};
+}
+```
+
+If we use XML, then, in the web.xml file:
+
+```xml
+<filter>
+    <filter-name>applicationFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+```
+
+This means that any request can be made to pass through the filter defined as Spring bean with the name applicationFilter.
 
 ![](./media/image10.png)
+
+### Exercise: Creating a Custom Filter
+*Source: https://www.baeldung.com/spring-delegating-filter-proxy*
+
+As described above, DelegatingFilterProxy is a servlet filter itself which delegates to a specific Spring-managed bean that implements the Filter Interface.
+
+In the next few sections, we’ll create a custom filter and configure it using Java & XML-based configuration.
+
+**Filter Class**
+
+We’re going to create a simple filter that logs request information before the request proceeds further.
+
+Let’s first create a custom filter class:
+
+```java
+@Component("loggingFilter")
+public class CustomFilter implements Filter {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(CustomFilter.class);
+
+    @Override
+    public void init(FilterConfig config) throws ServletException {
+        // initialize something
+    }
+
+    @Override
+    public void doFilter(
+      ServletRequest request, ServletResponse response, 
+      FilterChain chain) throws IOException, ServletException {
+ 
+        HttpServletRequest req = (HttpServletRequest) request;
+        LOGGER.info("Request Info : " + req);
+        chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+        // cleanup code, if necessary
+    }
+}
+```
+
+CustomFilter implements jakarta.Servlet.Filter. This class has a @Component annotation to register as Spring bean in the application context. This way, the DelegatingFilterProxy class can find our filter class while initializing the filter chain.
+
+Note that the name of the Spring bean must be the same as the value in the filter-name provided during the registration of the custom filter in ApplicationInitializer class or in web.xml later because the DelegatingFilterProxy class will look for the filter bean with the exact same name in the application context.
+
+If it can’t find a bean with this name, it will raise an exception at application startup.
+
+**Configuring the Filter via Java Configuration**
+
+To register a custom filter using Java configuration, we need to override the getServletFilters() method of AbstractAnnotationConfigDispatcherServletInitializer:
+
+```java
+public class ApplicationInitializer 
+  extends AbstractAnnotationConfigDispatcherServletInitializer {
+    // some other methods here
+ 
+    @Override
+    protected Filter[] getServletFilters() {
+        DelegatingFilterProxy delegateFilterProxy = new DelegatingFilterProxy();
+        delegateFilterProxy.setTargetBeanName("loggingFilter");
+        return new Filter[]{delegateFilterProxy};
+    }
+}
+```
+
+**Configuring the Filter via web.xml**
+
+Let’s see how the filter configuration in web.xml looks like:
+
+```xml
+<filter>
+    <filter-name>loggingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>loggingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+
+The filter-class argument is of type DelegatingFilterProxy and not the filter class we created. If we run this code and hit any URL, then doFilter() method of the CustomFilter will get executed and display the request info details in the log file
 
 ## Rest Client
 
