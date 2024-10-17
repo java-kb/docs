@@ -1,7 +1,7 @@
 ---
 title: Cloud Native Development
 parent: Cloud Native
-nav_order: 6
+nav_order: 1
 ---
 
 > TODO Add doc from https://12factor.net/
@@ -57,8 +57,18 @@ which can lead to you clarifying the scope of the application and even defining 
 stories to implement.
 
 In the cloud, any application can be a backing service for another one. Adopting
-an API first mentality will help you evolve your applications and adapt them to future
-requirements.
+an API first mentality will help you evolve your applications and adapt them to future requirements.
+
+The API first principle recommends designing the API before implementing
+the business logic to establish a contract. In this way, other teams can develop
+their services to consume your application based on the contract itself, without
+waiting for the application to be finished.
+
+###  Evolving APIs for future requirements
+* make backward-compatible changes to the API. For example, we can add an optional field to the Book object without affecting the clients of the Catalog Service application.
+* use API versioning,The version might be part of the endpoint itself, like /v2/books. Or it might be specified as an HTTP header. This system helps prevent existing clients from breaking, but they will have to update their interface to match the new API version sooner or later, meaning that coordination is needed.
+* making the REST API client as resilient to API changes as possible. The solution is to use the hypermedia aspect of the REST architecture(HATEOAS)
+
 ## 3 Dependency management
 All application dependencies should be declared explicitly in a manifest and be available for the dependency manager to download from a central repository. In the context of Java applications, we are usually well-equipped to follow this principle using
 tools like Maven or Gradle. The only implicit dependencies an application can have

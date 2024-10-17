@@ -1,6 +1,6 @@
 ---
 title: Docker
-parnet: Deployment
+parent: Deployment
 has_children: true
 nav_order: 1
 ---

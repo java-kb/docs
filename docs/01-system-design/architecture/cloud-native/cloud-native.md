@@ -179,6 +179,13 @@ Cloud native allow engineers to make high-impact changes frequently and predicta
     it should be immediately fixed to ensure the mainline keeps being a stable foundation for further development.
 
     Continuous delivery encourages the automation of the whole process via a deployment pipeline (also called a continuous delivery pipeline)
+
+    An essential practice of continuous delivery is test-driven development (TDD), which
+    helps achieve the goal of delivering software quickly, reliably, and safely. The idea is to
+    drive software development by writing tests before implementing the production code. 
+
+    Cloud native applications don’t depend on servers being injected into the environment. Instead, they use an embedded server and are self-contained.
+    
 * **DevOps** 
     
     DevOps is A culture where people, regardless of title or background, work together to imagine,develop, deploy, and operate a system.

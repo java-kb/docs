@@ -1,8 +1,8 @@
 ---
 title: Dockerize Spring
-parnet: Deployment
+parent: Deployment
 has_children: true
-nav_order: 1
+nav_order: 4
 ---
 
 # Dockerize Spring
