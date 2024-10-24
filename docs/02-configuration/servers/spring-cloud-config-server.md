@@ -1,49 +1,55 @@
 ---
-title: Configuration Servers
+title: Spring Cloud Config Server
 parent: Configuration Servers
 nav_order: 1
 ---
 
-# Spring Cloud Config
-## Profiles
-one of the main advantages of Spring Boot is its ability 
-to configure profiles. A profile is a set of configuration properties that you can enable 
-depending on your needs. For example, you could switch between connecting to a 
-local RabbitMQ server while testing locally and the real RabbitMQ server running on 
-production when you deploy it to that environment.
+# Spring Cloud Config Server
+With system environment variables, you can externalize your application’s configuration and follow the 15-Factor methodology. However, there are some issues they cannot handle:
+* Configuration data is as important as the application code, so it should be han-
+dled with the same care and attention, starting from its persistence. Where
+should you store configuration data?
+* Environment variables don’t provide granular access control features. How can
+you control access to configuration data?
+* Configuration data will evolve and require changes, just like application code.
+How should you keep track of the revisions to configuration data? How should
+you audit the configuration used in a release?
+* After changing your configuration data, how can you make your application
+read it at runtime without requiring a full restart?
+* When the number of application instances increases, it can be challenging to
+handle configuration in a distributed fashion for each instance. How can you
+overcome such challenges?
+* Neither Spring Boot properties nor environment variables support configuration
+encryption, so you can’t safely store passwords. How should you manage secrets?
 
-To introduce a new rabbitprod profile, create a file named application-
-rabbitprod.properties. Spring Boot uses the application-{profile} naming 
-convention (for both properties and YAML formats) to define profiles in separate files. 
+The Spring ecosystem offers many options to address those issues. We can categorize
+them into three groups.
+* **Configuration services**—The Spring Cloud project provides modules you can
+use to run your own configuration services and configure your Spring Boot
+applications.
+  * **Spring Cloud Alibaba** provides a configuration service using Alibaba Nacos
+as the data store.
+  * **Spring Cloud Config** provides a configuration service backed by a pluggable
+data source, such as a Git repository, a data store, or HashiCorp Vault.
+  * **Spring Cloud Consul** provides a configuration service using HashiCorp Con-
+sul as the data store.
+  * **Spring Cloud Vault** provides a configuration service using HashiCorp Vault
+as the data store.
+  * **Spring Cloud Zookeeper** provides a configuration service using Apache Zoo-
+keeper as the data store.
+* **Cloud vendor services**—If you run your applications on a platform provided by a
+cloud vendor, you might consider using one of their configuration services.
+Spring Cloud provides integration with the main cloud vendor configuration
+services that you can use to configure your Spring Boot applications.
+  * **Spring Cloud AWS** provides integration with AWS Parameter Store and AWS
+Secrets Manager.
+  * **Spring Cloud Azure** provides integration with Azure Key Vault.
+  * **Spring Cloud GCP** provides integration with GCP Secret Manager.
+* **Cloud platform services**—When running your applications on a Kubernetes platform, you can seamlessly use **ConfigMaps** and Secrets to configure Spring Boot.
 
-If you use this profile for the production environment, you may want to use different credentials, a cluster of 
-nodes to connect to, a secure interface, and so on.
-```yml
-spring.rabbitmq.addresses=rabbitserver1.tpd.network:5672,rabbitserver2.tpd.
-network:5672
-spring.rabbitmq.connection-timeout=20s
-spring.rabbitmq.ssl.enabled=true
-spring.rabbitmq.username=produser1
-```
+The configuration server pattern for Spring is the Spring Cloud Config Server project. This is a native implementation included in the Spring Cloud family, which allows you to keep a set of configuration files distributed in folders and exposed via a REST API
 
-You have to make sure you enable this profile when you start the application in the 
-target environment. To do that, you use the spring.profiles.active property. Spring 
-Boot aggregates the base configuration (in application.properties) with the values 
-in this file. In this case, all extra properties will be added to the resulting configuration. 
-You can use a Spring Boot’s Maven plugin command to enable this new profile
-
-```bash
-./mvnw spring-boot:run -Dspring-boot.run.arguments="--spring.profiles.active=rabbitprod"
-```
-
-## Spring Cloud Config Server
-The configuration server pattern for Spring is the Spring Cloud Config Server project. This 
-is a native implementation included in the Spring Cloud family, which allows you to 
-keep a set of configuration files distributed in folders and exposed via a REST API. On 
-the client side, the projects using this dependency access the config server and request 
-the corresponding configuration resources, depending on their active profiles. The only 
-drawback of this solution is that you need to create another microservice to act as the 
-configuration server and expose the centralized files.
+On the client side, the projects using this dependency access the config server and request the corresponding configuration resources, depending on their active profiles. The only drawback of this solution is that you need to create another microservice to act as the configuration server and expose the centralized files.
 
 Spring Cloud Config is Spring’s client/server approach for storing and serving distributed configurations across multiple applications and environments.
 
@@ -67,6 +73,7 @@ dataSource.setUrl(env.getProperty("jdbc.url"));
 
 Spring Cloud Config provides server and client-side support for externalized configuration in a distributed system. With the Config Server you have a central place to manage external properties for applications across all environments. The concepts on both client and server map identically to the Spring Environment and PropertySource abstractions, so they fit very well with Spring applications, but can be used with any application running in any language. As an application moves through the deployment pipeline from dev to test and into production you can manage the configuration between those environments and be certain that applications have everything they need to run when they migrate. The default implementation of the server storage backend uses git so it easily supports labelled versions of configuration environments, as well as being accessible to a wide range of tooling for managing the content. It is easy to add alternative implementations and plug them in with Spring configuration.
 
+
 ### Features
 **Spring Cloud Config Server features:**
 
@@ -79,6 +86,28 @@ Spring Cloud Config provides server and client-side support for externalized con
 * Bind to the Config Server and initialize Spring Environment with remote property sources
 * Encrypt and decrypt property values (symmetric or asymmetric)
   
+The library relies on three parameters to identify which property file to
+use to configure a specific application:
+* {application}—The name of the application as defined by the spring
+.application.name property.
+* {profile}—One of the active profiles defined by the spring.profiles.active
+property.
+* {label}—A discriminator defined by the specific configuration data repository.
+In the case of Git, it can be a tag, a branch name, or a commit ID. It’s useful for
+identifying a versioned set of config files.
+
+Depending on your needs, you can organize the folder structure using different com-
+binations, such as these:
+* /{application}/application-{profile}.yml
+* /{application}/application.yml
+* /{application}-{profile}.yml
+* /{application}.yml
+* /application-{profile}.yml
+* /application.yml
+
+Spring Cloud Config Server will always return the properties from the most specific path, using the application name, active
+profiles, and Git labels.
+
 ### Usage
 #### Server
 Add maven package

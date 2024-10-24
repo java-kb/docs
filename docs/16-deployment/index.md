@@ -27,8 +27,7 @@ small steps and integrate our changes with the main branch multiple times a day(
 * Next, the pipeline can perform several types of static code analysis. For this example, vulnerability scanning, static code analysis to identify security issues and check compliance with specific coding standards (code linting).
 * Finally, the pipeline builds the application and runs automated tests. In the commit stage, we include technically focused tests that don’t require deploying the entire application. These are unit tests and often integration tests. If the integration tests take too long, it’s better to move them to the acceptance stage to keep the commit stage fast. 
 ### Acceptance stage
-The publication of a new release candidate to the artifact
-repository triggers this stage, which consists of:
+The publication of a new release candidate to the artifact repository triggers this stage, which consists of:
 * deploying the application to  production-like environments and 
 * running additional tests to increase the confidence about its releasability. The tests that run in the acceptance stage are usually slow, but we should strive to keep the whole deployment pipeline execution
 to under one hour. Examples of tests included in this stage are 

@@ -970,3 +970,6 @@ Cloud Consul's
 
 reference docs
 (https://cloud.spring.io/spring-cloud-consul/reference/html/).
+
+## References
+[Demystifying Spring Internals](https://www.youtube.com/watch?v=LeoCh7VK9cg)
