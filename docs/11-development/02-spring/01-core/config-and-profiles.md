@@ -107,6 +107,7 @@ Properties are key/value pairs supported in Java with java.util.Properties. They
 
         }
         ```
+
 ## Profiles
 Profiles are logical groups of beans that are loaded into the Spring context only if the specified profile is active. Spring Boot also extends this concept to property files, allowing you to define groups of configuration data that are loaded only if a specific profile is active.
 
@@ -249,10 +250,16 @@ Config data files are considered in the following order:
 1. Profile-specific application properties outside of your packaged jar (application-{profile}.properties and YAML variants).
 
 ### Configuring an application through command-line arguments
-    java -jar app.jar \
-    --sample.greeting="Welcome to the catalog from CLI"
+```console
+java -jar app.jar \
+--sample.greeting="Welcome to the catalog from CLI"
+```
+
 ### Configuring an application through JVM system properties
-    java -Dsample.greeting="Welcome to the catalog from JVM" -jar app.jar
+```console
+java -Dsample.greeting="Welcome to the catalog from JVM" -jar app.jar
+```
+
 ### Configuring an application through environment variables
 Environment variables defined in the operating system are commonly used for
 externalized configuration, and they are the recommended option according to the
