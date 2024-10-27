@@ -7,8 +7,7 @@ nav_order: 1
 ---
 
 # Authentication
-With spring boot default configuration, the app has two different authentication 
-mechanisms in place: HTTP Basic and Form Login, including a username and a password, when you start the application.
+With spring boot default configuration, the app has two different authentication mechanisms in place: HTTP Basic and Form Login, including a username and a password, when you start the application.
 
 HTTP Basic is a way in which a web app authenticates a user by means of a set of credentials (username and password) that the app gets in the header of the HTTP request.
 

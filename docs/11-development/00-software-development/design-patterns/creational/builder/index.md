@@ -8,8 +8,7 @@ nav_order: 5
 # Builder Design Pattern
 The Gang of Four describes the purpose of the “Prototype” pattern as follows:
 
-> Separate the construction of a complex object from its representation, so that the same con-
-struction process can produce different representations.
+> Separate the construction of a complex object from its representation, so that the same construction process can produce different representations.
 
 With the builder pattern, you have an object that is complex or complicated to construct. This object cannot be created in one pass, but goes through an 
 elaborate construction process.
@@ -48,6 +47,15 @@ public DataSource dataSource() {
             .build();
 }
 ```
-
+* The User class from the org.springframework.security.core.userdetails package is a simple way to build instances of the UserDetails type
+https://github.com/spring-projects/spring-security/blob/main/core/src/main/java/org/springframework/security/core/userdetails/User.java
+```java
+UserDetails u = User.withUsername("bill")
+    .password("12345")
+    .authorities("read", "write")
+    .accountExpired(false)
+    .disabled(true)
+    .build();
+```
 ## Examples
 https://github.com/java-kb/design_patterns
