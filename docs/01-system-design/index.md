@@ -5,3 +5,4 @@ nav_order: 1
 ---
 
 # System Design
+{: .no_toc }

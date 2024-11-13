@@ -31,6 +31,27 @@ OCI project (in the OCI Image Specification). OCI images can be created from
 scratch by defining instructions in a Dockerfile, a text-based file containing all the
 steps to generate the image. 
 
+Container images follow common naming conventions, which are adopted by OCI-
+compliant container registries: <container_registry>/<namespace>/<name>[:<tag>]:
+* Container registry—The hostname for the container registry where the image is
+stored. When using Docker Hub, the hostname is docker.io and it’s usually
+omitted. The Docker Engine will implicitly prepend the image name with
+docker.io if you don’t specify a registry. When using GitHub Container Regis-
+try, the hostname is ghcr.io and must be explicit.
+* Namespace—When using Docker Hub or GitHub Container Registry, the name-
+space will be your Docker/GitHub username written all in lowercase. In other
+registries, it might be the path to the repository.
+* Name and tag—The image name represents the repository (or package) that con-
+tains all the versions of your image. It’s optionally followed by a tag for selecting
+a specific version. If no tag is defined, the latest tag will be used by default.
+
+Official images like ubuntu or postgresql can be downloaded by specifying the name
+only, which is implicitly converted to fully qualified names like docker.io/library/
+ubuntu or docker.io/library/postgres.
+ When uploading your images to GitHub Container Registry, you are required
+to use fully qualified names, according to the ghcr.io/<your_github_username>/
+<image_name> format.
+
 A **container** is a runnable instance of a container image. You can manage the con-
 tainer life cycle from the Docker CLI or Docker Compose: you can start, stop, update,
 and delete containers. Containers are defined by the image on which they are based

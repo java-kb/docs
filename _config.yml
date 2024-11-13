@@ -32,7 +32,8 @@ github_username:  galkzaz
 # Build settings
 #theme: minima
 #theme: just-the-docs
-remote_theme: just-the-docs/just-the-docs
+#remote_theme: just-the-docs/just-the-docs
+remote_theme: just-the-docs/just-the-docs@v0.10.0
 
 mermaid:
   # Version of mermaid library
@@ -72,6 +73,7 @@ back_to_top_text: "Back to top"
 #   - vendor/gems/
 #   - vendor/ruby/
 nav_enabled: true
+
 callouts_level: quiet # or loud
 callouts:
   highlight:
@@ -90,4 +92,4 @@ callouts:
     color: red
   answer:
     title: "Answer:"
-    color: red
+    color: green

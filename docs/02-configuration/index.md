@@ -91,6 +91,9 @@ third-party services.
 </td>
 </tr>
 </table>
-  
+
+A configuration server handles aspects like secret encryption, configuration
+traceability, versioning, and context refreshing at runtime with no restart.
+
 ## Samples
 * [Multiplication Microservices Example](https://github.com/books-java/Learn-Microservices-with-Spring-Boot-3)

@@ -5,7 +5,7 @@ nav_order: 1
 ---
 
 # Spring Cloud Config Server
-With system environment variables(docs/docs/11-development/02-spring/01-core/config-and-profiles.html#configuring-an-application-through-environment-variables), you can externalize your application’s configuration and follow the 15-Factor methodology. However, there are some issues they cannot handle:
+With system environment variables(!()[/docs/docs/11-development/02-spring/01-core/config-and-profiles.html#configuring-an-application-through-environment-variables]), you can externalize your application’s configuration and follow the 15-Factor methodology. However, there are some issues they cannot handle:
 * Configuration data is as important as the application code, so it should be handled with the same care and attention, starting from its persistence. Where
 should you store configuration data?
 * Environment variables don’t provide granular access control features. How can

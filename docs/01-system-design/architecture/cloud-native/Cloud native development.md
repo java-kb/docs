@@ -4,7 +4,7 @@ parent: Cloud Native
 nav_order: 1
 ---
 
-> TODO Add doc from https://12factor.net/
+
 # Cloud Native Development
 # 12 Factors 
 the 12 defines best practices for building web applications with the following characteristics:
@@ -12,6 +12,8 @@ the 12 defines best practices for building web applications with the following c
 * Scalable by design
 * Portable across systems
 * Enablers of continuous deployment and agility
+
+> TODO Add doc from https://12factor.net/
 
 ## 1 One codebase, one application
 The 15-Factor methodology establishes a one-to-one mapping between an application
