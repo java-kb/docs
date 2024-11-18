@@ -1,25 +1,11 @@
 ---
-title: Dockerize Spring
-parent: Deployment
+title: Deploy Spring to Kubernetes 
+parent: Kubernetes
 has_children: true
 nav_order: 4
 ---
 
-# Dockerize Spring
-## Containerize Spring App
-### Using Buildpacks
-```console
-./mvnw spring-boot:build-image
-
-// Or from root
-
-mvn spring-boot:build-image -pl service1
-
-docker images service1
-
-docker run --rm --name service1 -p 8080:8080 service1:1.0
-```
-## Deploy to Kubernetes
+# Deploy to Kubernetes
 ## Using Commands
 minikube start
 

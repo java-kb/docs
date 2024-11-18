@@ -1,6 +1,6 @@
 ---
 title: Docker
-parent: Deployment
+parent: Packaging
 has_children: true
 nav_order: 1
 ---
@@ -61,3 +61,12 @@ and the host machine, but you can make them expose services to the outside world
 through specific ports with a process called port forwarding or port mapping. Containers
 can have any name. If you don’t specify one, the Docker server will assign a random
 one, like bazinga_schrodinger. 
+## Security
+containers run using the
+root user by default, potentially letting them get root access to the Docker host. You
+can mitigate the risk by creating a non-privileged user and using it to run the entry-
+point process defined in the Dockerfile, following the principle of least privilege.
+```docker
+RUN useradd spring 
+USER spring 
+```
